@@ -37,14 +37,23 @@ public class Problema {
             matriz = new int[quantidadeDeCidades][quantidadeDeCidades];
             tour = new int[quantidadeDeCidades];
 
+            int i = 0;
             while (bufferedReader.ready()) {
                 String linha = bufferedReader.readLine();
                 String[] parametros = linha.split(" ");
-                for (int j = parametros.length - 1, i = quantidadeDeCidades - 1; i >= quantidadeDeCidades - parametros.length; j--, i--) {
-                    matriz[i][j] = Integer.parseInt(parametros[j]);
+                for (int j = quantidadeDeCidades - 1, pos = parametros.length - 1; j > quantidadeDeCidades - parametros.length - 1; j--, pos--) {
+                    matriz[i][j] = Integer.parseInt(parametros[pos]);
                     matriz[j][i] = matriz[i][j];
                 }
+                i++;
             }
+            
+//            for (i = 0; i < matriz.length; i++) {
+//                for (int j = 0; j < matriz[i].length; j++) {
+//                    System.out.print(matriz[i][j] + "\t");
+//                }
+//                System.out.println("");
+//            }
 
             bufferedReader.close();
             fileReader.close();
@@ -58,7 +67,7 @@ public class Problema {
     public void hillClimbing() {
         int iteracoes = 0;
         int valor = Integer.MAX_VALUE;
-        while (valor > 24414) {
+        while (valor > 25395) {
             solucaoInicial();
             int cont = 0;
             while (cont < 10000) {
