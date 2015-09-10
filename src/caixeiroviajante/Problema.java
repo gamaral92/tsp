@@ -58,7 +58,7 @@ public class Problema {
     public void hillClimbing() {
         int iteracoes = 0;
         int valor = Integer.MAX_VALUE;
-        while (valor > 25395) {
+        while (valor > 24414) {
             solucaoInicial();
             int cont = 0;
             while (cont < 10000) {
