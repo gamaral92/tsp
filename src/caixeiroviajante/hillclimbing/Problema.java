@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package caixeiroviajante;
+package caixeiroviajante.hillclimbing;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -67,10 +67,10 @@ public class Problema {
     public void hillClimbing() {
         int iteracoes = 0;
         int valor = Integer.MAX_VALUE;
-        while (valor > 25395) {
+        while (valor > 26000) {
             solucaoInicial();
             int cont = 0;
-            while (cont < 10000) {
+            while (cont < 50000) {
                 valor = funcaoObjetivo();
                 swap();
                 int novoValor = funcaoObjetivo();
