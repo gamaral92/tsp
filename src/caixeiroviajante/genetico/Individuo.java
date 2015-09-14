@@ -76,7 +76,10 @@ public class Individuo {
     public String toString() {
         String caminho = "[";
         for (int i = 0; i < tamanhoDaRota(); i++) {
-            caminho += getCidade(i) + " ";
+            caminho += getCidade(i);
+            if (i + 1 < tamanhoDaRota()) {
+                caminho += "\t";
+            }
         }
         caminho += "]";
         return caminho;
