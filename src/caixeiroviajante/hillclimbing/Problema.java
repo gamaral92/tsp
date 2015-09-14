@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package caixeiroviajante.hillclimbing;
 
 import java.io.BufferedReader;
@@ -47,13 +42,6 @@ public class Problema {
                 }
                 i++;
             }
-            
-//            for (i = 0; i < matriz.length; i++) {
-//                for (int j = 0; j < matriz[i].length; j++) {
-//                    System.out.print(matriz[i][j] + "\t");
-//                }
-//                System.out.println("");
-//            }
 
             bufferedReader.close();
             fileReader.close();
@@ -95,12 +83,9 @@ public class Problema {
         int funcaoObjetivo = 0;
         int cidadeInicial = 0;
         for (int proximaCidade = 1; proximaCidade < quantidadeDeCidades; proximaCidade++) {
-            //System.out.print(sequencia[cidadeInicial] + "-" + sequencia[proximaCidade] + "\t");
             funcaoObjetivo += matriz[tour[cidadeInicial]][tour[proximaCidade]];
             cidadeInicial = proximaCidade;
         }
-        //System.out.print((sequencia[quantidadeDeCidades - 1]) + "-" + sequencia[0]);
-        //System.out.println("");
         funcaoObjetivo += matriz[tour[quantidadeDeCidades - 1]][tour[0]];
         return funcaoObjetivo;
     }
@@ -123,10 +108,6 @@ public class Problema {
     }
 
     private void mostrarTour() {
-//        for (int i = 0; i < quantidadeDeCidades; i++) {
-//            System.out.print(i + "\t");
-//        }
-//        System.out.println("");
         for (int i = 0; i < quantidadeDeCidades; i++) {
             System.out.print(tour[i] + "\t");
         }
