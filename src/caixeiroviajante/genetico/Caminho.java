@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package caixeiroviajante.genetico;
 
 import java.io.BufferedReader;
@@ -17,18 +12,18 @@ import java.util.ArrayList;
  */
 public class Caminho {
 
-    private ArrayList<Cidade> caminho;
+    private ArrayList<Cidade> cidades;
 
     public void adicionarCidade(Cidade cidade) {
-        caminho.add(cidade);
+        cidades.add(cidade);
     }
 
     public Cidade getCidade(int indice) {
-        return caminho.get(indice);
+        return cidades.get(indice);
     }
 
     public int getNumeroDeCidades() {
-        return caminho.size();
+        return cidades.size();
     }
     
     public boolean lerArquivo(String nomeArquivo){
@@ -40,15 +35,13 @@ public class Caminho {
                 String linha = bufferedReader.readLine();
                 String[] parametros = linha.split(" ");
                 int quantidadeDeCidades = Integer.parseInt(parametros[0]);
-                caminho = new ArrayList<>(quantidadeDeCidades);
+                cidades = new ArrayList<>(quantidadeDeCidades);
             }
-
 
             while (bufferedReader.ready()) {
                 String linha = bufferedReader.readLine();
                 String[] parametros = linha.split(" ");
-                Cidade cidade = new Cidade(Integer.parseInt(parametros[1]), 
-                        Double.parseDouble(parametros[2]), Double.parseDouble(parametros[3]));
+                Cidade cidade = new Cidade(Integer.parseInt(parametros[1]), Double.parseDouble(parametros[2]), Double.parseDouble(parametros[3]));
                 adicionarCidade(cidade);
             }
 

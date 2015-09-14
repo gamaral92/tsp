@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package caixeiroviajante.genetico;
 
 import java.util.ArrayList;
@@ -12,22 +7,17 @@ import java.util.Collections;
  *
  * @author gabrielamaral
  */
-public class Rota {
+public class Individuo {
 
-    private ArrayList<Cidade> rotas;
+    private final ArrayList<Cidade> rota;
     private double fitness;
     private double distancia;
 
-    public Rota(Caminho caminho) {
-        this.rotas = new ArrayList<>();
+    public Individuo(Caminho caminho) {
+        this.rota = new ArrayList<>();
         for (int i = 0; i < caminho.getNumeroDeCidades(); i++) {
-            rotas.add(null);
+            rota.add(null);
         }
-    }
-    
-
-    public Rota(ArrayList<Cidade> rotas) {
-        this.rotas = rotas;
         this.fitness = 0;
         this.distancia = 0;
     }
@@ -36,15 +26,15 @@ public class Rota {
         for (int i = 0; i < caminho.getNumeroDeCidades(); i++) {
             setCidade(i, caminho.getCidade(i));
         }
-        Collections.shuffle(rotas);
+        Collections.shuffle(rota);
     }
 
     public Cidade getCidade(int indice) {
-        return rotas.get(indice);
+        return rota.get(indice);
     }
 
     public void setCidade(int indice, Cidade cidade) {
-        rotas.set(indice, cidade);
+        rota.set(indice, cidade);
         this.fitness = 0;
         this.distancia = 0;
     }
@@ -62,7 +52,7 @@ public class Rota {
             for (int i = 0; i < tamanhoDaRota(); i++) {
                 Cidade origem = getCidade(i);
                 Cidade destino;
-                if (i + 1 < tamanhoDaRota()) {
+                if ((i + 1) < tamanhoDaRota()) {
                     destino = getCidade(i + 1);
                 } else {
                     destino = getCidade(0);
@@ -75,21 +65,21 @@ public class Rota {
     }
 
     public int tamanhoDaRota() {
-        return rotas.size();
+        return rota.size();
     }
 
     public boolean contemCidade(Cidade cidade) {
-        return rotas.contains(cidade);
+        return rota.contains(cidade);
     }
 
     @Override
     public String toString() {
-        String geneString = "[";
+        String caminho = "[";
         for (int i = 0; i < tamanhoDaRota(); i++) {
-            geneString += getCidade(i) + " ";
+            caminho += getCidade(i) + " ";
         }
-            geneString += "]";
-        return geneString;
+        caminho += "]";
+        return caminho;
     }
 
 }

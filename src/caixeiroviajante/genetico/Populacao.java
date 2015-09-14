@@ -1,51 +1,44 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package caixeiroviajante.genetico;
-
-import java.util.ArrayList;
 
 /**
  *
  * @author gabrielamaral
  */
-public class Populacao {
+public final class Populacao {
 
-    private Rota[] rotas;
+    private final Individuo[] individuos;
 
     public Populacao(int tamanhoPopulacao, boolean iniciar, Caminho caminho) {
-        rotas = new Rota[tamanhoPopulacao];
+        individuos = new Individuo[tamanhoPopulacao];
         if (iniciar) {
-            for (int i = 0; i < tamanhoPopulacao(); i++) {
-                Rota novaRota = new Rota(caminho);
-                novaRota.gerarIndividuo(caminho);
-                salvarRota(i, novaRota);
+            for (int i = 0; i < tamanhoPopulacao; i++) {
+                Individuo novoIndividuo = new Individuo(caminho);
+                novoIndividuo.gerarIndividuo(caminho);
+                salvarIndividuo(i, novoIndividuo);
             }
         }
     }
 
-    public void salvarRota(int indice, Rota rota) {
-        rotas[indice] = rota;
+    public void salvarIndividuo(int indice, Individuo individuo) {
+        individuos[indice] = individuo;
     }
 
-    public Rota getRota(int indice) {
-        return rotas[indice];
+    public Individuo getIndividuo(int indice) {
+        return individuos[indice];
     }
 
-    public Rota getApto() {
-        Rota apto = rotas[0];
-        for (int i = 0; i < tamanhoPopulacao(); i++) {
-            if (apto.getFitness() <= getRota(i).getFitness()) {
-                apto = getRota(i);
+    public Individuo getIndividuoApto() {
+        Individuo apto = individuos[0];
+        for (int i = 1; i < tamanhoPopulacao(); i++) {
+            if (apto.getFitness() <= getIndividuo(i).getFitness()) {
+                apto = getIndividuo(i);
             }
         }
         return apto;
     }
 
     public int tamanhoPopulacao() {
-        return rotas.length;
+        return individuos.length;
     }
 
 }

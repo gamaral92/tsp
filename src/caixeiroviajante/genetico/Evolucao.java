@@ -1,11 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package caixeiroviajante.genetico;
-
-import java.util.ArrayList;
 
 /**
  *
@@ -13,10 +6,10 @@ import java.util.ArrayList;
  */
 public class Evolucao {
 
-    private double taxaMutacao;
-    private int tamanhoTorneio;
-    private boolean elitismo;
-    private Caminho caminho;
+    private final double taxaMutacao;
+    private final int tamanhoTorneio;
+    private final boolean elitismo;
+    private final Caminho caminho;
 
     public Evolucao(double taxaMutacao, int tamanhoTorneio, boolean elitismo, Caminho caminho) {
         this.taxaMutacao = taxaMutacao;
@@ -30,38 +23,38 @@ public class Evolucao {
 
         int elitismoCompensador = 0;
         if (elitismo) {
-            novaPopulacao.salvarRota(0, populacao.getApto());
+            novaPopulacao.salvarIndividuo(0, populacao.getIndividuoApto());
             elitismoCompensador = 1;
         }
 
         for (int i = elitismoCompensador; i < novaPopulacao.tamanhoPopulacao(); i++) {
-            Rota pai1 = torneio(populacao);
-            Rota pai2 = torneio(populacao);
+            Individuo pai1 = torneio(populacao);
+            Individuo pai2 = torneio(populacao);
 
-            Rota filho = crossOver(pai1, pai2);
+            Individuo filho = crossOver(pai1, pai2);
 
-            novaPopulacao.salvarRota(i, filho);
+            novaPopulacao.salvarIndividuo(i, filho);
         }
 
         for (int i = elitismoCompensador; i < populacao.tamanhoPopulacao(); i++) {
-            mutacao(novaPopulacao.getRota(i));
+            mutacao(novaPopulacao.getIndividuo(i));
         }
 
         return novaPopulacao;
     }
 
-    private Rota torneio(Populacao populacao) {
+    private Individuo torneio(Populacao populacao) {
         Populacao torneio = new Populacao(tamanhoTorneio, false, caminho);
         for (int i = 0; i < tamanhoTorneio; i++) {
             int idAleatorio = (int) (Math.random() * populacao.tamanhoPopulacao());
-            torneio.salvarRota(i, populacao.getRota(idAleatorio));
+            torneio.salvarIndividuo(i, populacao.getIndividuo(idAleatorio));
         }
-        Rota apto = torneio.getApto();
+        Individuo apto = torneio.getIndividuoApto();
         return apto;
     }
 
-    private Rota crossOver(Rota pai1, Rota pai2) {
-        Rota filho = new Rota(caminho);
+    private Individuo crossOver(Individuo pai1, Individuo pai2) {
+        Individuo filho = new Individuo(caminho);
 
         int posicaoInicial = (int) (Math.random() * pai1.tamanhoDaRota());
         int posicaoFinal = (int) (Math.random() * pai1.tamanhoDaRota());
@@ -90,16 +83,16 @@ public class Evolucao {
         return filho;
     }
 
-    private void mutacao(Rota rota) {
-        for (int posicaoRota = 0; posicaoRota < rota.tamanhoDaRota(); posicaoRota++) {
+    private void mutacao(Individuo individuo) {
+        for (int posicaoRota1 = 0; posicaoRota1 < individuo.tamanhoDaRota(); posicaoRota1++) {
             if (Math.random() < taxaMutacao) {
-                int posicaoRota2 = (int) (rota.tamanhoDaRota() * Math.random());
+                int posicaoRota2 = (int) (individuo.tamanhoDaRota() * Math.random());
 
-                Cidade cidade = rota.getCidade(posicaoRota);
-                Cidade cidade2 = rota.getCidade(posicaoRota2);
+                Cidade cidade1 = individuo.getCidade(posicaoRota1);
+                Cidade cidade2 = individuo.getCidade(posicaoRota2);
 
-                rota.setCidade(posicaoRota, cidade2);
-                rota.setCidade(posicaoRota2, cidade);
+                individuo.setCidade(posicaoRota1, cidade2);
+                individuo.setCidade(posicaoRota2, cidade1);
             }
         }
     }
