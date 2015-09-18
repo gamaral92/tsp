@@ -27,14 +27,14 @@ public final class Populacao {
         return individuos[indice];
     }
 
-    public Individuo getIndividuoApto() {
-        Individuo apto = individuos[0];
+    public Individuo getIndividuoMaisApto() {
+        Individuo maisApto = individuos[0];
         for (int i = 1; i < tamanhoPopulacao(); i++) {
-            if (apto.getFitness() <= getIndividuo(i).getFitness()) {
-                apto = getIndividuo(i);
+            if (maisApto.getFitness() <= getIndividuo(i).getFitness()) {
+                maisApto = getIndividuo(i);
             }
         }
-        return apto;
+        return maisApto;
     }
 
     public int tamanhoPopulacao() {

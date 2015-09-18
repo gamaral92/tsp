@@ -1,7 +1,6 @@
 package caixeiroviajante.genetico;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Random;
 
 /**
  *
@@ -9,15 +8,12 @@ import java.util.Collections;
  */
 public class Individuo {
 
-    private final ArrayList<Cidade> rota;
+    private final Cidade[] rota;
     private double fitness;
     private double distancia;
 
     public Individuo(Caminho caminho) {
-        this.rota = new ArrayList<>();
-        for (int i = 0; i < caminho.getNumeroDeCidades(); i++) {
-            rota.add(null);
-        }
+        this.rota = new Cidade[caminho.getNumeroDeCidades()];
         this.fitness = 0;
         this.distancia = 0;
     }
@@ -26,15 +22,25 @@ public class Individuo {
         for (int i = 0; i < caminho.getNumeroDeCidades(); i++) {
             setCidade(i, caminho.getCidade(i));
         }
-        Collections.shuffle(rota);
+        shuffle(rota);
+    }
+
+    private void shuffle(Cidade[] cidades) {
+        Random random = new Random();
+        for (int i = 0; i < cidades.length; i++) {
+            int j = i + random.nextInt(cidades.length) % (cidades.length - i);
+            Cidade cidade = cidades[i];
+            cidades[i] = cidades[j];
+            cidades[j] = cidade;
+        }
     }
 
     public Cidade getCidade(int indice) {
-        return rota.get(indice);
+        return rota[indice];
     }
 
     public void setCidade(int indice, Cidade cidade) {
-        rota.set(indice, cidade);
+        rota[indice] = cidade;
         this.fitness = 0;
         this.distancia = 0;
     }
@@ -57,7 +63,7 @@ public class Individuo {
                 } else {
                     destino = getCidade(0);
                 }
-                distanciaDaRota += origem.distanciaAte(destino);
+                distanciaDaRota += origem.distanciaGEOAte(destino);
             }
             this.distancia = distanciaDaRota;
         }
@@ -65,11 +71,16 @@ public class Individuo {
     }
 
     public int tamanhoDaRota() {
-        return rota.size();
+        return rota.length;
     }
 
     public boolean contemCidade(Cidade cidade) {
-        return rota.contains(cidade);
+        for (Cidade c : rota) {
+            if (c != null && c.getId() == cidade.getId()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

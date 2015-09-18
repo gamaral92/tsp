@@ -23,7 +23,7 @@ public class Evolucao {
 
         int elitismoCompensador = 0;
         if (elitismo) {
-            novaPopulacao.salvarIndividuo(0, populacao.getIndividuoApto());
+            novaPopulacao.salvarIndividuo(0, populacao.getIndividuoMaisApto());
             elitismoCompensador = 1;
         }
 
@@ -49,7 +49,7 @@ public class Evolucao {
             int idAleatorio = (int) (Math.random() * populacao.tamanhoPopulacao());
             torneio.salvarIndividuo(i, populacao.getIndividuo(idAleatorio));
         }
-        Individuo apto = torneio.getIndividuoApto();
+        Individuo apto = torneio.getIndividuoMaisApto();
         return apto;
     }
 

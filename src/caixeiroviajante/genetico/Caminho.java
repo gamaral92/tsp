@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  *
@@ -12,18 +11,18 @@ import java.util.ArrayList;
  */
 public class Caminho {
 
-    private ArrayList<Cidade> cidades;
+    private Cidade[] cidades;
 
-    public void adicionarCidade(Cidade cidade) {
-        cidades.add(cidade);
+    public void adicionarCidade(Cidade cidade, int indice) {
+        cidades[indice] = cidade;
     }
 
     public Cidade getCidade(int indice) {
-        return cidades.get(indice);
+        return cidades[indice];
     }
 
     public int getNumeroDeCidades() {
-        return cidades.size();
+        return cidades.length;
     }
     
     public boolean lerArquivo(String nomeArquivo){
@@ -35,14 +34,16 @@ public class Caminho {
                 String linha = bufferedReader.readLine();
                 String[] parametros = linha.split(" ");
                 int quantidadeDeCidades = Integer.parseInt(parametros[0]);
-                cidades = new ArrayList<>(quantidadeDeCidades);
+                cidades = new Cidade[quantidadeDeCidades];
             }
 
+            int indice = 0;
             while (bufferedReader.ready()) {
                 String linha = bufferedReader.readLine();
                 String[] parametros = linha.split(" ");
                 Cidade cidade = new Cidade(Integer.parseInt(parametros[1]), Double.parseDouble(parametros[2]), Double.parseDouble(parametros[3]));
-                adicionarCidade(cidade);
+                adicionarCidade(cidade, indice);
+                indice++;
             }
 
             bufferedReader.close();
