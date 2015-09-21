@@ -87,7 +87,7 @@ public class Evolucao {
         return filho;
     }
 
-    public void mutacaoTroca(Individuo individuo) {
+    private void mutacaoTroca(Individuo individuo) {
         if (Math.random() < taxaMutacao) {
             int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
             int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
@@ -100,7 +100,7 @@ public class Evolucao {
         }
     }
 
-    public void mutacaoInsercao(Individuo individuo) {
+    private void mutacaoInsercao(Individuo individuo) {
         if (Math.random() < taxaMutacao) {
             int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
             int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
@@ -117,7 +117,7 @@ public class Evolucao {
         }
     }
 
-    public void mutacaoScramble(Individuo individuo) {
+    private void mutacaoScramble(Individuo individuo) {
         if (Math.random() < taxaMutacao) {
             int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
             int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
