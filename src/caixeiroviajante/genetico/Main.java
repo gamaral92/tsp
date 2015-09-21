@@ -10,18 +10,18 @@ public class Main {
 
     public static void main(String[] args) {
         Caminho caminho = new Caminho();
-        caminho.lerArquivo("burma14.tsp");
+        //caminho.lerArquivo("burma14.tsp");
         //caminho.lerArquivo("ulysses16.tsp");
         //caminho.lerArquivo("ulysses22.tsp");
         //caminho.lerArquivo("gr96.tsp");
-        //caminho.lerArquivo("gr137.tsp");
+        caminho.lerArquivo("gr137.tsp");
 
-        Evolucao e = new Evolucao(0.01, 5, true, caminho);
+        Evolucao e = new Evolucao(0.01, 10, true, caminho);
         //[tamanhoPop, taxaMutacao, tamanhoTorneio, geracoes]
         Populacao p = new Populacao(100, true, caminho);
         System.out.println(p.getIndividuoMaisApto());
         System.out.println("Distancia inicial = " + p.getIndividuoMaisApto().getDistancia());
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
             p = e.desenvolverPopulacao(p);
         }
         System.out.println("Solucao:");
