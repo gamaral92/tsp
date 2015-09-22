@@ -10,18 +10,18 @@ public class Main {
 
     public static void main(String[] args) {
         Caminho caminho = new Caminho();
-        //caminho.lerArquivo("burma14.tsp");
-        //caminho.lerArquivo("ulysses16.tsp");
-        //caminho.lerArquivo("ulysses22.tsp");
-        //caminho.lerArquivo("gr96.tsp");
-        caminho.lerArquivo("gr137.tsp");
+        //caminho.lerArquivo("burma14.tsp"); //3323
+        //caminho.lerArquivo("ulysses16.tsp"); //6859
+        //caminho.lerArquivo("ulysses22.tsp"); //7013
+        caminho.lerArquivo("gr96.tsp"); //55209
+        //caminho.lerArquivo("gr137.tsp"); //69853
 
-        Evolucao e = new Evolucao(0.01, 10, true, caminho);
+        Evolucao e = new Evolucao(0.2, 25, true, caminho);
         //[tamanhoPop, taxaMutacao, tamanhoTorneio, geracoes]
-        Populacao p = new Populacao(100, true, caminho);
+        Populacao p = new Populacao(caminho.getNumeroDeCidades() * 20, true, caminho);
         System.out.println(p.getIndividuoMaisApto());
         System.out.println("Distancia inicial = " + p.getIndividuoMaisApto().getDistancia());
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 1000; i++) {
             p = e.desenvolverPopulacao(p);
         }
         System.out.println("Solucao:");
@@ -32,13 +32,13 @@ public class Main {
 //        
 //        double[] parametros = new double[4];
 //
-//        double taxaMutacao = 0.005;
+//        double taxaMutacao = 0.001;
 //        while (taxaMutacao <= 0.05) {
-//            int tamanhoTorneio = 2;
-//            while (tamanhoTorneio <= 5) {
+//            int tamanhoTorneio = 1;
+//            while (tamanhoTorneio <= 30) {
 //                Evolucao evolucao = new Evolucao(taxaMutacao, tamanhoTorneio, true, caminho);
-//                int tamanhoPop = 50;
-//                while (tamanhoPop <= 200) {
+//                int tamanhoPop = caminho.getNumeroDeCidades();
+//                while (tamanhoPop <= caminho.getNumeroDeCidades() * 20) {
 //                    int geracoes = 100;
 //                    while (geracoes <= 1000) {
 //                        Populacao populacao = new Populacao(tamanhoPop, true, caminho);
@@ -65,11 +65,11 @@ public class Main {
 //                        //System.out.println("-------------------------------------------");
 //                        geracoes *= 10;
 //                    }
-//                    tamanhoPop += 50;
+//                    tamanhoPop *= 2;
 //                }
-//                tamanhoTorneio++;
+//                tamanhoTorneio += 5;
 //            }
-//            taxaMutacao = taxaMutacao + 0.005;
+//            taxaMutacao = taxaMutacao + 0.001;
 //        }
 //
 //        System.out.println("best = " + bestCost);

@@ -30,9 +30,11 @@ public class Evolucao {
         }
 
         for (int i = elitismoCompensador; i < novaPopulacao.tamanhoPopulacao(); i++) {
+//            Individuo pai1 = roleta(populacao);
+//            Individuo pai2 = roleta(populacao);
             Individuo pai1 = torneio(populacao);
             Individuo pai2 = torneio(populacao);
-            
+
             Individuo filho = crossOver(pai1, pai2);
 
             novaPopulacao.salvarIndividuo(i, filho);
@@ -55,6 +57,24 @@ public class Evolucao {
         }
         Individuo maisApto = torneio.getIndividuoMaisApto();
         return maisApto;
+    }
+
+    private Individuo roleta(Populacao populacao) {
+        double soma = 0;
+        for (int i = 0; i < populacao.tamanhoPopulacao(); i++) {
+            soma += populacao.getIndividuo(i).getFitness();
+        }
+
+        double valor = Math.random() * soma;
+
+        for (int i = 0; i < populacao.tamanhoPopulacao(); i++) {
+            valor -= populacao.getIndividuo(i).getFitness();
+            if (valor <= 0) {
+                return populacao.getIndividuo(i);
+            }
+        }
+
+        return populacao.getIndividuo(populacao.tamanhoPopulacao() - 1);
     }
 
     private Individuo crossOver(Individuo pai1, Individuo pai2) {
