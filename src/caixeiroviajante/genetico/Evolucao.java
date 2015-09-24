@@ -42,8 +42,8 @@ public class Evolucao {
 
         for (int i = elitismoCompensador; i < populacao.tamanhoPopulacao(); i++) {
             //mutacaoTroca(novaPopulacao.getIndividuo(i));
-            //mutacaoScramble(novaPopulacao.getIndividuo(i));
-            mutacaoInsercao(novaPopulacao.getIndividuo(i));
+            mutacaoScramble(novaPopulacao.getIndividuo(i));
+            //mutacaoInsercao(novaPopulacao.getIndividuo(i));
         }
 
         return novaPopulacao;

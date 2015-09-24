@@ -10,41 +10,48 @@ public class Main {
 
     public static void main(String[] args) {
         Caminho caminho = new Caminho();
-        caminho.lerArquivo("burma14.tsp"); //3323
+        //caminho.lerArquivo("burma14.tsp"); //3323
         //caminho.lerArquivo("ulysses16.tsp"); //6859
         //caminho.lerArquivo("ulysses22.tsp"); //7013
         //caminho.lerArquivo("gr96.tsp"); //55209
-        //caminho.lerArquivo("gr137.tsp"); //69853
+        caminho.lerArquivo("gr137.tsp"); //69853
 
         Arquivo arquivo = new Arquivo("saida.txt");
         Arquivo arquivo1 = new Arquivo("saida2.txt");
 
         int cont = 0;
+        int cont2 = 0;
 
-        while (cont < 5) {
+        //while (cont < 300) {
 
-            Evolucao e = new Evolucao(0.4, (int) (caminho.getNumeroDeCidades() * 0.15), true, caminho);
+            Evolucao e = new Evolucao(0.06, (int) (caminho.getNumeroDeCidades() * 0.15), true, caminho);
             //[tamanhoPop, taxaMutacao, tamanhoTorneio, geracoes]
             Populacao p = new Populacao(caminho.getNumeroDeCidades() * 10, true, caminho);
             System.out.println(p.getIndividuoMaisApto());
             System.out.println("Distancia inicial = " + p.getIndividuoMaisApto().getDistancia());
-            for (int i = 0; i < 4000; i++) {
+            for (int i = 0; i < 2000; i++) {
                 p = e.desenvolverPopulacao(p);
-                String melhor = p.getIndividuoMaisApto().getDistancia() + "\t";
-                arquivo1.escrever(melhor);
+                if (cont2 < 15) {
+//                    String melhor = p.getIndividuoMaisApto().getDistancia() + "\t";
+//                    arquivo1.escrever(melhor);
+                }
             }
-            arquivo1.quebraLinha();
-            arquivo1.salvar();
+            if (cont2 < 15) {
+//                arquivo1.quebraLinha();
+//                arquivo1.salvar();
+//                cont2++;
+            }
+            System.out.println(cont);
             System.out.println("Solucao:");
             System.out.println(p.getIndividuoMaisApto());
             System.out.println("Distancia final = " + p.getIndividuoMaisApto().getDistancia());
-            System.out.println("gap = " + p.getGap(3323.0));
-            String gap = p.getGap(3323.0) + "";
-            arquivo.escrever(gap);
-            arquivo.quebraLinha();
-            arquivo.salvar();
+            System.out.println("gap = " + p.getGap(69853.0));
+//            String gap = p.getGap(69853.0) + "";
+//            arquivo.escrever(gap);
+//            arquivo.quebraLinha();
+//            arquivo.salvar();
             cont++;
-        }
+        //}
 
         arquivo.fecharRecursos();
 
