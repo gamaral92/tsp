@@ -10,37 +10,57 @@ public class Main {
 
     public static void main(String[] args) {
         Caminho caminho = new Caminho();
-        //caminho.lerArquivo("burma14.tsp"); //3323
+        caminho.lerArquivo("burma14.tsp"); //3323
         //caminho.lerArquivo("ulysses16.tsp"); //6859
         //caminho.lerArquivo("ulysses22.tsp"); //7013
-        caminho.lerArquivo("gr96.tsp"); //55209
+        //caminho.lerArquivo("gr96.tsp"); //55209
         //caminho.lerArquivo("gr137.tsp"); //69853
 
-        Evolucao e = new Evolucao(0.2, 25, true, caminho);
-        //[tamanhoPop, taxaMutacao, tamanhoTorneio, geracoes]
-        Populacao p = new Populacao(caminho.getNumeroDeCidades() * 20, true, caminho);
-        System.out.println(p.getIndividuoMaisApto());
-        System.out.println("Distancia inicial = " + p.getIndividuoMaisApto().getDistancia());
-        for (int i = 0; i < 1000; i++) {
-            p = e.desenvolverPopulacao(p);
+        Arquivo arquivo = new Arquivo("saida.txt");
+        Arquivo arquivo1 = new Arquivo("saida2.txt");
+
+        int cont = 0;
+
+        while (cont < 5) {
+
+            Evolucao e = new Evolucao(0.4, (int) (caminho.getNumeroDeCidades() * 0.15), true, caminho);
+            //[tamanhoPop, taxaMutacao, tamanhoTorneio, geracoes]
+            Populacao p = new Populacao(caminho.getNumeroDeCidades() * 10, true, caminho);
+            System.out.println(p.getIndividuoMaisApto());
+            System.out.println("Distancia inicial = " + p.getIndividuoMaisApto().getDistancia());
+            for (int i = 0; i < 4000; i++) {
+                p = e.desenvolverPopulacao(p);
+                String melhor = p.getIndividuoMaisApto().getDistancia() + "\t";
+                arquivo1.escrever(melhor);
+            }
+            arquivo1.quebraLinha();
+            arquivo1.salvar();
+            System.out.println("Solucao:");
+            System.out.println(p.getIndividuoMaisApto());
+            System.out.println("Distancia final = " + p.getIndividuoMaisApto().getDistancia());
+            System.out.println("gap = " + p.getGap(3323.0));
+            String gap = p.getGap(3323.0) + "";
+            arquivo.escrever(gap);
+            arquivo.quebraLinha();
+            arquivo.salvar();
+            cont++;
         }
-        System.out.println("Solucao:");
-        System.out.println(p.getIndividuoMaisApto());
-        System.out.println("Distancia final = " + p.getIndividuoMaisApto().getDistancia());
+
+        arquivo.fecharRecursos();
 
 //        double bestCost = Integer.MAX_VALUE;
-//        
+//
 //        double[] parametros = new double[4];
 //
-//        double taxaMutacao = 0.001;
-//        while (taxaMutacao <= 0.05) {
-//            int tamanhoTorneio = 1;
-//            while (tamanhoTorneio <= 30) {
+//        double taxaMutacao = 0.01;
+//        while (taxaMutacao <= 0.1) {
+//            int tamanhoTorneio = 2;
+//            while (tamanhoTorneio <= caminho.getNumeroDeCidades()) {
 //                Evolucao evolucao = new Evolucao(taxaMutacao, tamanhoTorneio, true, caminho);
 //                int tamanhoPop = caminho.getNumeroDeCidades();
-//                while (tamanhoPop <= caminho.getNumeroDeCidades() * 20) {
+//                while (tamanhoPop <= caminho.getNumeroDeCidades() * 5) {
 //                    int geracoes = 100;
-//                    while (geracoes <= 1000) {
+//                    while (geracoes <= 2000) {
 //                        Populacao populacao = new Populacao(tamanhoPop, true, caminho);
 //                        //System.out.println(populacao.getIndividuoMaisApto());
 //                        //System.out.println("Distancia inicial = " + populacao.getIndividuoMaisApto().getDistancia());
@@ -63,17 +83,16 @@ public class Main {
 //                        //System.out.println(populacao.getIndividuoMaisApto());
 //                        //System.out.println("Fim");
 //                        //System.out.println("-------------------------------------------");
-//                        geracoes *= 10;
+//                        geracoes += 100;
 //                    }
-//                    tamanhoPop *= 2;
+//                    tamanhoPop *= (int) ((caminho.getNumeroDeCidades() * 5) * 0.1);
 //                }
-//                tamanhoTorneio += 5;
+//                tamanhoTorneio += (int) (caminho.getNumeroDeCidades() * 0.1);
 //            }
-//            taxaMutacao = taxaMutacao + 0.001;
+//            taxaMutacao = taxaMutacao + 0.01;
 //        }
 //
 //        System.out.println("best = " + bestCost);
 //        System.out.println(Arrays.toString(parametros));
-
     }
 }

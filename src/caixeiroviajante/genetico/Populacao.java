@@ -37,6 +37,10 @@ public final class Populacao {
         return maisApto;
     }
 
+    public double getGap(double valor) {
+        return (1.0 - (valor / (getIndividuoMaisApto().getDistancia())));
+    }
+
     public int tamanhoPopulacao() {
         return individuos.length;
     }
