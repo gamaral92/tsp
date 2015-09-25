@@ -24,10 +24,20 @@ public class Evolucao {
         Populacao novaPopulacao = new Populacao(populacao.tamanhoPopulacao(), false, caminho);
 
         int elitismoCompensador = 0;
-        if (elitismo) {
-            novaPopulacao.salvarIndividuo(0, populacao.getIndividuoMaisApto());
-            elitismoCompensador = 1;
-        }
+//        if (elitismo) {
+//            novaPopulacao.salvarIndividuo(0, populacao.getIndividuoMaisApto());
+//            elitismoCompensador = 1;
+//
+//            Individuo pai1 = novaPopulacao.getIndividuo(0);
+//            mutacaoTroca(pai1);
+//            Individuo pai2 = torneio(populacao);
+//
+//            Individuo filho = crossOver(pai1, pai2);
+//
+//            novaPopulacao.salvarIndividuo(elitismoCompensador, filho);
+//            elitismoCompensador = 2;
+//
+//        }
 
         for (int i = elitismoCompensador; i < novaPopulacao.tamanhoPopulacao(); i++) {
 //            Individuo pai1 = roleta(populacao);
@@ -41,9 +51,11 @@ public class Evolucao {
         }
 
         for (int i = elitismoCompensador; i < populacao.tamanhoPopulacao(); i++) {
-            //mutacaoTroca(novaPopulacao.getIndividuo(i));
-            mutacaoScramble(novaPopulacao.getIndividuo(i));
-            //mutacaoInsercao(novaPopulacao.getIndividuo(i));
+            if (Math.random() < taxaMutacao) {
+                mutacaoTroca(novaPopulacao.getIndividuo(i));
+                //mutacaoScramble(novaPopulacao.getIndividuo(i));
+                //mutacaoInsercao(novaPopulacao.getIndividuo(i));
+            }
         }
 
         return novaPopulacao;
@@ -108,55 +120,46 @@ public class Evolucao {
     }
 
     private void mutacaoTroca(Individuo individuo) {
-        if (Math.random() < taxaMutacao) {
-            for (int mutacoes = 0; mutacoes < individuo.tamanhoDaRota() * 0.25; mutacoes++) {
-                int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
-                int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
 
-                Cidade cidade1 = individuo.getCidade(indiceOrigem);
-                Cidade cidade2 = individuo.getCidade(indiceDestino);
+        int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
+        int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
 
-                individuo.setCidade(indiceOrigem, cidade2);
-                individuo.setCidade(indiceDestino, cidade1);
-            }
-        }
+        Cidade cidade1 = individuo.getCidade(indiceOrigem);
+        Cidade cidade2 = individuo.getCidade(indiceDestino);
+
+        individuo.setCidade(indiceOrigem, cidade2);
+        individuo.setCidade(indiceDestino, cidade1);
     }
 
     private void mutacaoInsercao(Individuo individuo) {
-        if (Math.random() < taxaMutacao) {
-            for (int mutacoes = 0; mutacoes < individuo.tamanhoDaRota() * 0.25; mutacoes++) {
-                int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
-                int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
-                if (indiceOrigem > indiceDestino) {
-                    int aux = indiceOrigem;
-                    indiceOrigem = indiceDestino;
-                    indiceDestino = aux;
-                }
-                Cidade cidade = individuo.getCidade(indiceOrigem);
-                for (int i = indiceOrigem; i < indiceDestino; i++) {
-                    individuo.setCidade(i, individuo.getCidade(i + 1));
-                }
-                individuo.setCidade(indiceDestino, cidade);
-            }
+        int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
+        int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
+        if (indiceOrigem > indiceDestino) {
+            int aux = indiceOrigem;
+            indiceOrigem = indiceDestino;
+            indiceDestino = aux;
         }
+        Cidade cidade = individuo.getCidade(indiceOrigem);
+        for (int i = indiceOrigem; i < indiceDestino; i++) {
+            individuo.setCidade(i, individuo.getCidade(i + 1));
+        }
+        individuo.setCidade(indiceDestino, cidade);
     }
 
     private void mutacaoScramble(Individuo individuo) {
-        if (Math.random() < taxaMutacao) {
-            int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
-            int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
-            if (indiceOrigem > indiceDestino) {
-                int aux = indiceOrigem;
-                indiceOrigem = indiceDestino;
-                indiceDestino = aux;
-            }
-            Random random = new Random();
-            for (int i = indiceOrigem; i < indiceDestino; i++) {
-                int j = i + (random.nextInt(indiceDestino) + indiceOrigem) % (indiceDestino - i);
-                Cidade cidade = individuo.getCidade(i);
-                individuo.setCidade(i, individuo.getCidade(j));
-                individuo.setCidade(j, cidade);
-            }
+        int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
+        int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
+        if (indiceOrigem > indiceDestino) {
+            int aux = indiceOrigem;
+            indiceOrigem = indiceDestino;
+            indiceDestino = aux;
+        }
+        Random random = new Random();
+        for (int i = indiceOrigem; i < indiceDestino; i++) {
+            int j = i + (random.nextInt(indiceDestino) + indiceOrigem) % (indiceDestino - i);
+            Cidade cidade = individuo.getCidade(i);
+            individuo.setCidade(i, individuo.getCidade(j));
+            individuo.setCidade(j, cidade);
         }
     }
 
