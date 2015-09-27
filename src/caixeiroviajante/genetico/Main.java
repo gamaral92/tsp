@@ -13,29 +13,31 @@ public class Main {
         //caminho.lerArquivo("burma14.tsp"); //3323
         //caminho.lerArquivo("ulysses16.tsp"); //6859
         //caminho.lerArquivo("ulysses22.tsp"); //7013
-        caminho.lerArquivo("gr96.tsp"); //55209
-        //caminho.lerArquivo("gr137.tsp"); //69853
+        //caminho.lerArquivo("gr96.tsp"); //55209
+        caminho.lerArquivo("gr137.tsp"); //69853
 
-        Evolucao e = new Evolucao(0.025, (int) (caminho.getNumeroDeCidades() * 0.25), true, caminho);
+        Evolucao e = new Evolucao(0.04, 25, caminho);
         //[tamanhoPop, taxaMutacao, tamanhoTorneio, geracoes]
-        Populacao p = new Populacao(caminho.getNumeroDeCidades() * 3, true, caminho);
+        Populacao p = new Populacao(100, true, caminho);
         System.out.println(p.getIndividuoMaisApto());
         System.out.println("Distancia inicial = " + p.getIndividuoMaisApto().getDistancia());
         int limite = 100;
-        for (int i = 0; i < 2500; i++) {
+        for (int i = 0; i < 5000; i++) {
             p = e.desenvolverPopulacao(p);
             if (i == limite) {
-                System.out.println(i + " ---->");
+                System.out.println(i + ":");
+                System.out.println("");
                 System.out.println(p.getIndividuoMaisApto());
                 System.out.println("Distancia = " + p.getIndividuoMaisApto().getDistancia());
-                System.out.println("gap = " + p.getGap(55209.0));
+                System.out.println("gap = " + p.getGap(69853.0));
+                System.out.println("");
                 limite += 100;
             }
         }
         System.out.println("Solucao:");
         System.out.println(p.getIndividuoMaisApto());
         System.out.println("Distancia final = " + p.getIndividuoMaisApto().getDistancia());
-        System.out.println("gap = " + p.getGap(55209.0));
+        System.out.println("gap = " + p.getGap(69853.0));
 
 //        double bestCost = Integer.MAX_VALUE;
 //

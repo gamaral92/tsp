@@ -10,13 +10,11 @@ public class Evolucao {
 
     private final double taxaMutacao;
     private final int tamanhoTorneio;
-    private final boolean elitismo;
     private final Caminho caminho;
 
-    public Evolucao(double taxaMutacao, int tamanhoTorneio, boolean elitismo, Caminho caminho) {
+    public Evolucao(double taxaMutacao, int tamanhoTorneio, Caminho caminho) {
         this.taxaMutacao = taxaMutacao;
         this.tamanhoTorneio = tamanhoTorneio;
-        this.elitismo = elitismo;
         this.caminho = caminho;
     }
 
@@ -24,24 +22,17 @@ public class Evolucao {
         Populacao novaPopulacao = new Populacao(populacao.tamanhoPopulacao(), false, caminho);
 
         int elitismoCompensador = 0;
-//        if (elitismo) {
-//            novaPopulacao.salvarIndividuo(0, populacao.getIndividuoMaisApto());
-//            elitismoCompensador = 1;
+        Individuo maisApto = populacao.getIndividuoMaisApto();
+        novaPopulacao.salvarIndividuo(elitismoCompensador, maisApto);
+        elitismoCompensador = 1;
+//        Individuo pai = torneio(populacao);
 //
-//            Individuo pai1 = novaPopulacao.getIndividuo(0);
-//            mutacaoTroca(pai1);
-//            Individuo pai2 = torneio(populacao);
+//        Individuo filhoDoMaisApto = crossOver(maisApto, pai);
 //
-//            Individuo filho = crossOver(pai1, pai2);
-//
-//            novaPopulacao.salvarIndividuo(elitismoCompensador, filho);
-//            elitismoCompensador = 2;
-//
-//        }
+//        novaPopulacao.salvarIndividuo(elitismoCompensador, filhoDoMaisApto);
+//        elitismoCompensador = 2;
 
         for (int i = elitismoCompensador; i < novaPopulacao.tamanhoPopulacao(); i++) {
-//            Individuo pai1 = roleta(populacao);
-//            Individuo pai2 = roleta(populacao);
             Individuo pai1 = torneio(populacao);
             Individuo pai2 = torneio(populacao);
 
@@ -52,9 +43,14 @@ public class Evolucao {
 
         for (int i = elitismoCompensador; i < populacao.tamanhoPopulacao(); i++) {
             if (Math.random() < taxaMutacao) {
-                mutacaoTroca(novaPopulacao.getIndividuo(i));
-                //mutacaoScramble(novaPopulacao.getIndividuo(i));
-                //mutacaoInsercao(novaPopulacao.getIndividuo(i));
+                double tx = Math.random();
+                if (tx < 0.4) {
+                    mutacaoInsercao(novaPopulacao.getIndividuo(i));
+                } else if (tx < 0.8) {
+                    mutacaoTroca(novaPopulacao.getIndividuo(i));
+                } else {
+                    mutacaoScramble(novaPopulacao.getIndividuo(i));
+                }
             }
         }
 
@@ -69,24 +65,6 @@ public class Evolucao {
         }
         Individuo maisApto = torneio.getIndividuoMaisApto();
         return maisApto;
-    }
-
-    private Individuo roleta(Populacao populacao) {
-        double soma = 0;
-        for (int i = 0; i < populacao.tamanhoPopulacao(); i++) {
-            soma += populacao.getIndividuo(i).getFitness();
-        }
-
-        double valor = Math.random() * soma;
-
-        for (int i = 0; i < populacao.tamanhoPopulacao(); i++) {
-            valor -= populacao.getIndividuo(i).getFitness();
-            if (valor <= 0) {
-                return populacao.getIndividuo(i);
-            }
-        }
-
-        return populacao.getIndividuo(populacao.tamanhoPopulacao() - 1);
     }
 
     private Individuo crossOver(Individuo pai1, Individuo pai2) {
