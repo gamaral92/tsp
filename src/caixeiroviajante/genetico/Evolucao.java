@@ -21,18 +21,13 @@ public class Evolucao {
     public Populacao desenvolverPopulacao(Populacao populacao) {
         Populacao novaPopulacao = new Populacao(populacao.tamanhoPopulacao(), false, caminho);
 
-        int elitismoCompensador = 0;
-        Individuo maisApto = populacao.getIndividuoMaisApto();
-        novaPopulacao.salvarIndividuo(elitismoCompensador, maisApto);
-        elitismoCompensador = 1;
-//        Individuo pai = torneio(populacao);
-//
-//        Individuo filhoDoMaisApto = crossOver(maisApto, pai);
-//
-//        novaPopulacao.salvarIndividuo(elitismoCompensador, filhoDoMaisApto);
-//        elitismoCompensador = 2;
+        int indice = 0;
+        
+        novaPopulacao.salvarIndividuo(indice, populacao.getIndividuoMaisApto());
 
-        for (int i = elitismoCompensador; i < novaPopulacao.tamanhoPopulacao(); i++) {
+        indice = 1;
+
+        for (int i = indice; i < novaPopulacao.tamanhoPopulacao(); i++) {
             Individuo pai1 = torneio(populacao);
             Individuo pai2 = torneio(populacao);
 
@@ -41,12 +36,12 @@ public class Evolucao {
             novaPopulacao.salvarIndividuo(i, filho);
         }
 
-        for (int i = elitismoCompensador; i < populacao.tamanhoPopulacao(); i++) {
+        for (int i = indice; i < populacao.tamanhoPopulacao(); i++) {
             if (Math.random() < taxaMutacao) {
                 double tx = Math.random();
-                if (tx < 0.4) {
+                if (tx < 0.5) {
                     mutacaoInsercao(novaPopulacao.getIndividuo(i));
-                } else if (tx < 0.8) {
+                } else if (tx < 0.9) {
                     mutacaoTroca(novaPopulacao.getIndividuo(i));
                 } else {
                     mutacaoScramble(novaPopulacao.getIndividuo(i));
@@ -98,7 +93,6 @@ public class Evolucao {
     }
 
     private void mutacaoTroca(Individuo individuo) {
-
         int indiceOrigem = (int) (individuo.tamanhoDaRota() * Math.random());
         int indiceDestino = (int) (individuo.tamanhoDaRota() * Math.random());
 
@@ -118,8 +112,8 @@ public class Evolucao {
             indiceDestino = aux;
         }
         Cidade cidade = individuo.getCidade(indiceOrigem);
-        for (int i = indiceOrigem; i < indiceDestino; i++) {
-            individuo.setCidade(i, individuo.getCidade(i + 1));
+        for (int j = indiceOrigem; j < indiceDestino; j++) {
+            individuo.setCidade(j, individuo.getCidade(j + 1));
         }
         individuo.setCidade(indiceDestino, cidade);
     }

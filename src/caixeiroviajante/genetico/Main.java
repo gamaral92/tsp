@@ -1,7 +1,5 @@
 package caixeiroviajante.genetico;
 
-import java.util.Arrays;
-
 /**
  *
  * @author gabrielamaral
@@ -16,74 +14,17 @@ public class Main {
         //caminho.lerArquivo("gr96.tsp"); //55209
         caminho.lerArquivo("gr137.tsp"); //69853
 
-        Evolucao e = new Evolucao(0.04, 25, caminho);
-        //[tamanhoPop, taxaMutacao, tamanhoTorneio, geracoes]
+        Evolucao e = new Evolucao(0.085, 25, caminho);
         Populacao p = new Populacao(100, true, caminho);
         System.out.println(p.getIndividuoMaisApto());
         System.out.println("Distancia inicial = " + p.getIndividuoMaisApto().getDistancia());
-        int limite = 100;
+        System.out.println("");
         for (int i = 0; i < 5000; i++) {
             p = e.desenvolverPopulacao(p);
-            if (i == limite) {
-                System.out.println(i + ":");
-                System.out.println("");
-                System.out.println(p.getIndividuoMaisApto());
-                System.out.println("Distancia = " + p.getIndividuoMaisApto().getDistancia());
-                System.out.println("gap = " + p.getGap(69853.0));
-                System.out.println("");
-                limite += 100;
-            }
         }
         System.out.println("Solucao:");
         System.out.println(p.getIndividuoMaisApto());
         System.out.println("Distancia final = " + p.getIndividuoMaisApto().getDistancia());
         System.out.println("gap = " + p.getGap(69853.0));
-
-//        double bestCost = Integer.MAX_VALUE;
-//
-//        double[] parametros = new double[4];
-//
-//        double taxaMutacao = 0.01;
-//        while (taxaMutacao <= 0.1) {
-//            int tamanhoTorneio = 2;
-//            while (tamanhoTorneio <= caminho.getNumeroDeCidades()) {
-//                Evolucao evolucao = new Evolucao(taxaMutacao, tamanhoTorneio, true, caminho);
-//                int tamanhoPop = caminho.getNumeroDeCidades();
-//                while (tamanhoPop <= caminho.getNumeroDeCidades() * 5) {
-//                    int geracoes = 100;
-//                    while (geracoes <= 2000) {
-//                        Populacao populacao = new Populacao(tamanhoPop, true, caminho);
-//                        //System.out.println(populacao.getIndividuoMaisApto());
-//                        //System.out.println("Distancia inicial = " + populacao.getIndividuoMaisApto().getDistancia());
-//                        for (int i = 0; i < geracoes; i++) {
-//                            populacao = evolucao.desenvolverPopulacao(populacao);
-//                        }
-//                        //System.out.println("tamanhoPop = " + tamanhoPop);
-//                        //System.out.println("taxaMutacao = " + taxaMutacao);
-//                        //System.out.println("tamanhoTorneio = " + tamanhoTorneio);
-//                        //System.out.println("geracoes = " + geracoes);
-//                        //System.out.println("Distancia final = " + populacao.getIndividuoMaisApto().getDistancia());
-//                        if (populacao.getIndividuoMaisApto().getDistancia() < bestCost) {
-//                            bestCost = populacao.getIndividuoMaisApto().getDistancia();
-//                            parametros[0] = tamanhoPop;
-//                            parametros[1] = taxaMutacao;
-//                            parametros[2] = tamanhoTorneio;
-//                            parametros[3] = geracoes;
-//                        }
-//                        //System.out.println("Solucao:");
-//                        //System.out.println(populacao.getIndividuoMaisApto());
-//                        //System.out.println("Fim");
-//                        //System.out.println("-------------------------------------------");
-//                        geracoes += 100;
-//                    }
-//                    tamanhoPop *= (int) ((caminho.getNumeroDeCidades() * 5) * 0.1);
-//                }
-//                tamanhoTorneio += (int) (caminho.getNumeroDeCidades() * 0.1);
-//            }
-//            taxaMutacao = taxaMutacao + 0.01;
-//        }
-//
-//        System.out.println("best = " + bestCost);
-//        System.out.println(Arrays.toString(parametros));
     }
 }

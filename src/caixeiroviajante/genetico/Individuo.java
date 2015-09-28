@@ -27,7 +27,7 @@ public class Individuo {
 
     private void shuffle(Cidade[] cidades) {
         Random random = new Random();
-        for (int i = 0; i < cidades.length * 0.2; i++) {
+        for (int i = 0; i < cidades.length * 0.15; i++) {
             int j = i + random.nextInt(cidades.length) % (cidades.length - i);
             Cidade cidade = cidades[i];
             cidades[i] = cidades[j];

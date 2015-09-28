@@ -1,5 +1,7 @@
 package caixeiroviajante.genetico;
 
+import java.util.Arrays;
+
 /**
  *
  * @author gabrielamaral
@@ -39,6 +41,18 @@ public final class Populacao {
 
     public double getGap(double valor) {
         return (1.0 - (valor / (getIndividuoMaisApto().getDistancia())));
+    }
+
+    public void sort() {
+        Arrays.sort(individuos, (Individuo individuo, Individuo individuo1) -> {
+            if (individuo.getFitness() > individuo1.getFitness()) {
+                return -1;
+            } else if (individuo.getFitness() < individuo1.getFitness()) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
     }
 
     public int tamanhoPopulacao() {

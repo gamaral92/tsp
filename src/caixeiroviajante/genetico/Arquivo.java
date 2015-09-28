@@ -11,11 +11,12 @@ import java.io.IOException;
  */
 public class Arquivo {
 
-    private File arquivo;
+    private final File arquivo;
     private FileWriter fw;
     private BufferedWriter bw;
 
     public Arquivo(String nome) {
+        nome = "r/" + nome;
         arquivo = new File(nome);
         try {
             fw = new FileWriter(arquivo);
