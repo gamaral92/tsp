@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  *
@@ -15,32 +14,26 @@ public class CriarArquivoMedia {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        FileReader fileReader = new FileReader(new File("r/distancia.dat"));
+        FileReader fileReader = new FileReader(new File("r/gap.dat"));
         BufferedReader bufferedReader = new BufferedReader(fileReader);
-        double[][] matriz = new double[21][];
-        int linha = 0;
+        double[] gap = new double[300];
+        int indice = 0;
         while (bufferedReader.ready()) {
-            String[] string = bufferedReader.readLine().split(" ");
-            matriz[linha] = new double[string.length];
-            for (int coluna = 0; coluna < matriz[linha].length; coluna++) {
-                matriz[linha][coluna] = Double.parseDouble(string[coluna]);
+            String string = bufferedReader.readLine();
+            gap[indice++] = Double.parseDouble(string);
+        }
+        double maiorValor = Double.MIN_VALUE;
+        double menorValor = Double.MAX_VALUE;
+        for (double g : gap) {
+            if (g > maiorValor) {
+                maiorValor = g;
             }
-            linha++;
-        }
-        double[] media = new double[matriz[0].length];
-        for (int coluna = 0; coluna < matriz[0].length; coluna++) {
-            double valor = 0.0;
-            for (linha = 0; linha < matriz.length; linha++) {
-                valor += matriz[linha][coluna];
+            if (g < menorValor) {
+                menorValor = g;
             }
-            media[coluna] = valor;
         }
-        Arquivo arquivo = new Arquivo("mediadistancia.dat");
-        for (double m : media) {
-            arquivo.escrever(m + " ");
-        }
-        arquivo.salvar();
-        arquivo.fecharRecursos();
+        System.out.println("maior valor: " + maiorValor);
+        System.out.println("menor valor: " + menorValor);
     }
 
 }

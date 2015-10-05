@@ -14,12 +14,12 @@ public class Main {
         //caminho.lerArquivo("gr96.tsp"); //55209
         caminho.lerArquivo("gr137.tsp"); //69853
 
-        Evolucao e = new Evolucao(0.085, 25, caminho);
-        Populacao p = new Populacao(100, true, caminho);
+        Evolucao e = new Evolucao(0.1, 50, caminho);
+        Populacao p = new Populacao(250, true, caminho);
         System.out.println(p.getIndividuoMaisApto());
         System.out.println("Distancia inicial = " + p.getIndividuoMaisApto().getDistancia());
         System.out.println("");
-        for (int i = 0; i < 5000; i++) {
+        for (int i = 0; i < 3000; i++) {
             p = e.desenvolverPopulacao(p);
         }
         System.out.println("Solucao:");
