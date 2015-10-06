@@ -26,16 +26,16 @@ public class Estatisticas {
                 escrever = false;
             }
             System.out.println("Iteração: " + quantidadeGap);
-            Evolucao e = new Evolucao(0.085, 25, caminho);
+            Evolucao e = new Evolucao(0.1, 50, caminho);
 
-            Populacao p = new Populacao(100, true, caminho);
+            Populacao p = new Populacao(250, true, caminho);
 
             StringBuilder builder = new StringBuilder();
             if (escrever) {
-                builder.append(p.getIndividuoMaisApto().getDistancia());
+                builder.append(p.getIndividuoMaisApto().getDistancia()).append(" ");
             }
 
-            for (int i = 0; i < 5000; i++) {
+            for (int i = 0; i < 3000; i++) {
                 p = e.desenvolverPopulacao(p);
                 if (escrever) {
                     builder.append(p.getIndividuoMaisApto().getDistancia()).append(" ");
