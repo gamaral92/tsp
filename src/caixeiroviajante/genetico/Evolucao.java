@@ -39,9 +39,9 @@ public class Evolucao {
         for (int i = indice; i < populacao.tamanhoPopulacao(); i++) {
             if (Math.random() < taxaMutacao) {
                 double tx = Math.random();
-                if (tx < 0.5) {
+                if (tx < 0.4) {
                     mutacaoInsercao(novaPopulacao.getIndividuo(i));
-                } else if (tx < 0.9) {
+                } else if (tx < 0.8) {
                     mutacaoTroca(novaPopulacao.getIndividuo(i));
                 } else {
                     mutacaoScramble(novaPopulacao.getIndividuo(i));

@@ -1,0 +1,8 @@
+tx mutação = 0.1
+população = 250
+torneio = 50
+geracoes = 3000
+
+
+maior valor: 0.23633719976823253
+menor valor: 0.08619607022317577

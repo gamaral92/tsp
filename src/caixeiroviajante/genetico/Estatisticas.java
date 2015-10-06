@@ -17,7 +17,7 @@ public class Estatisticas {
         caminho.lerArquivo("gr137.tsp"); //69853
 
         int quantidadeGap = 0;
-        int quantidadeDistancia = 0;
+        int quantidadeDistancia = 1;
 
         while (quantidadeGap++ < 300) {
             
@@ -35,7 +35,7 @@ public class Estatisticas {
                 builder.append(p.getIndividuoMaisApto().getDistancia()).append(" ");
             }
 
-            for (int i = 0; i < 3000; i++) {
+            for (int i = 1; i < 3000; i++) {
                 p = e.desenvolverPopulacao(p);
                 if (escrever) {
                     builder.append(p.getIndividuoMaisApto().getDistancia()).append(" ");
