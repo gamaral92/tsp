@@ -14,8 +14,8 @@ public class Main {
         //caminho.lerArquivo("gr96.tsp"); //55209
         caminho.lerArquivo("gr137.tsp"); //69853
 
-        Evolucao e = new Evolucao(0.15, 50, caminho);
-        Populacao p = new Populacao(350, true, caminho);
+        Evolucao e = new Evolucao(0.2, 70, caminho);
+        Populacao p = new Populacao(400, true, caminho);
         System.out.println(p.getIndividuoMaisApto());
         System.out.println("Distancia inicial = " + p.getIndividuoMaisApto().getDistancia());
         System.out.println("");

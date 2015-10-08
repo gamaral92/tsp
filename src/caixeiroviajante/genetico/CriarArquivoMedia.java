@@ -14,7 +14,7 @@ public class CriarArquivoMedia {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        FileReader fileReader = new FileReader(new File("r/r1/distancia.dat"));
+        FileReader fileReader = new FileReader(new File("r/r2/distancia.dat"));
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
         arquivo(bufferedReader);
@@ -42,13 +42,13 @@ public class CriarArquivoMedia {
             media[j] = valor / 20.0;
         }
 
-        Arquivo a = new Arquivo("r1/mediadistancia.dat");
+        Arquivo a = new Arquivo("r2/mediadistancia.dat");
         StringBuilder builder = new StringBuilder();
         for (double d : media) {
-            builder.append(d).append(" ");
+            builder.append(d).append("\n");
         }
-        a.escrever(builder.toString());
         a.quebraLinha();
+        a.escrever(builder.toString());
         a.salvar();
         a.fecharRecursos();
 

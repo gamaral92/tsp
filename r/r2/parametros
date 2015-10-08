@@ -1,0 +1,11 @@
+tx mutação = 0.15
+população = 350
+torneio = 50
+geracoes = 3000
+
+
+maior valor: 0.24184900581748714
+menor valor: 0.0701516180131252
+media = 0.1490071
+desvio padrao = 0.03183655
+mediana = 0.148757

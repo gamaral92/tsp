@@ -26,9 +26,9 @@ public class Estatisticas {
                 escrever = false;
             }
             System.out.println("Iteração: " + quantidadeGap);
-            Evolucao e = new Evolucao(0.15, 50, caminho);
+            Evolucao e = new Evolucao(0.2, 70, caminho);
 
-            Populacao p = new Populacao(350, true, caminho);
+            Populacao p = new Populacao(400, true, caminho);
 
             StringBuilder builder = new StringBuilder();
             if (escrever) {
