@@ -1,5 +1,7 @@
-package caixeiroviajante.genetico;
+package caixeiroviajante.genetic;
 
+import caixeiroviajante.Individuo;
+import caixeiroviajante.Caminho;
 import java.util.Arrays;
 
 /**
@@ -14,7 +16,7 @@ public final class Populacao {
         individuos = new Individuo[tamanhoPopulacao];
         if (iniciar) {
             for (int i = 0; i < tamanhoPopulacao; i++) {
-                Individuo novoIndividuo = new Individuo(caminho);
+                Individuo novoIndividuo = new Individuo(caminho.getNumeroDeCidades());
                 novoIndividuo.gerarIndividuo(caminho);
                 salvarIndividuo(i, novoIndividuo);
             }

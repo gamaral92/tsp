@@ -1,4 +1,6 @@
-package caixeiroviajante.genetico;
+package caixeiroviajante.genetic;
+
+import caixeiroviajante.Caminho;
 
 /**
  *

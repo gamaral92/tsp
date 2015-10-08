@@ -1,4 +1,4 @@
-package caixeiroviajante.genetico;
+package caixeiroviajante.genetic;
 
 import java.io.BufferedReader;
 import java.io.File;

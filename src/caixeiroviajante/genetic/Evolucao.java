@@ -1,5 +1,8 @@
-package caixeiroviajante.genetico;
+package caixeiroviajante.genetic;
 
+import caixeiroviajante.Individuo;
+import caixeiroviajante.Caminho;
+import caixeiroviajante.Cidade;
 import java.util.Random;
 
 /**
@@ -63,7 +66,7 @@ public class Evolucao {
     }
 
     private Individuo crossOver(Individuo pai1, Individuo pai2) {
-        Individuo filho = new Individuo(caminho);
+        Individuo filho = new Individuo(caminho.getNumeroDeCidades());
 
         int posicaoInicial = (int) (Math.random() * pai1.tamanhoDaRota());
         int posicaoFinal = (int) (Math.random() * pai1.tamanhoDaRota());
